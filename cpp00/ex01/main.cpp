@@ -6,7 +6,7 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:38:21 by aarranz-          #+#    #+#             */
-/*   Updated: 2025/02/18 11:55:25 by aarranz-         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:34:32 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,26 @@
 
 int main(void)
 {
-	PhoneBook	phonebook;
-	std::string	line;
+	PhoneBook	PhoneBook;
+	std::string	command;
 
-	while(1)
-	{
-		std::cout << "▶️ ";
-		std::getline(std::cin, line);
-		if (line.compare("ADD") == 0)
-			phonebook.add_contact();
-//		if (line.compare("SEARCH") == 0)
-		if (line.compare("EXIT") == 0)
-			break;
+	while (1) {
+		std::cout << "Enter command (ADD, SEARCH, EXIT): ";
+		std::getline(std::cin, command);
+		if (std::cin.eof()) {
+			std::cout << std::endl;
+			return (0);
+		}
+		if (command == "ADD") {
+			PhoneBook.addContact();
+		} else if (command == "SEARCH") {
+			PhoneBook.searchContact();
+		} else if (command == "EXIT") {
+			std::cout << "EXIT" << std::endl;
+			break ;
+		} else {
+			std::cout << "Error: Invalid command. Please try again.\n";
+		}
 	}
+	return 0;
 }
