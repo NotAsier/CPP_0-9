@@ -6,7 +6,7 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:07:41 by aarranz-          #+#    #+#             */
-/*   Updated: 2025/03/03 16:50:36 by aarranz-         ###   ########.fr       */
+/*   Updated: 2025/03/03 19:10:04 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,56 @@ void PhoneBook::print(int index)
 			  << this->contacts[index].getDarkestSecret() << std::endl;
 }
 
+int PhoneBook::number(std::string str)
+{
+	for(size_t i = 0; i < str.length(); i++)
+	{
+		
+		if(!std::isdigit(str[i]))
+		{
+			std::cout << "put only numbers" << std::endl;
+			return (0);
+		}
+	}
+	return(1);
+}
+
 void PhoneBook::addContact()
 {
 	std::string str;
 
 	str = "";
 	while (!std::cin.eof() && str == "" && std::cout << "ADD> first name>")
+	{
 		if (std::getline(std::cin, str) && str != "")
 			this->contacts[this->index % 8].setFirstName(str);
+	}
 	str = "";
 	while (!std::cin.eof() && str == "" && std::cout << "ADD> last name>")
+	{
 		if (std::getline(std::cin, str) && str != "")
 			this->contacts[this->index % 8].setLastName(str);
+	}
 	str = "";
 	while (!std::cin.eof() && str == "" && std::cout << "ADD> nickname>")
+	{
 		if (std::getline(std::cin, str) && str != "")
 			this->contacts[this->index % 8].setNickname(str);
+	}
 	str = "";
 	while (!std::cin.eof() && str == "" && std::cout << "ADD> phone number>")
-		if (std::getline(std::cin, str) && str != "")
+	{
+		if (std::getline(std::cin, str)&& str != "")
 			this->contacts[this->index % 8].setPhoneNumber(str);
+		if(!number(str))
+			str = "";
+	}
 	str = "";
 	while (!std::cin.eof() && str == "" && std::cout << "ADD> darkest secret>")
+	{
 		if (std::getline(std::cin, str) && str != "")
 			this->contacts[this->index % 8].setDarkestSecret(str);
+	}
 	this->index++;
 }
 
