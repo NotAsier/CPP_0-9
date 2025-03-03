@@ -6,7 +6,7 @@
 #    By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/18 11:51:41 by aarranz-          #+#    #+#              #
-#    Updated: 2025/02/18 12:02:35 by aarranz-         ###   ########.fr        #
+#    Updated: 2025/03/03 16:09:45 by aarranz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main			\
-		phonebook		
-#		Contact
+		phonebook		\
+		contact
 
 SRCS =	$(addsuffix .cpp, $(SRC))
 OBJ =	$(SRCS:%.cpp=%.o)

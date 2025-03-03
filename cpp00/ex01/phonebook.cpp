@@ -6,46 +6,107 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:07:41 by aarranz-          #+#    #+#             */
-/*   Updated: 2025/02/18 14:31:45 by aarranz-         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:50:36 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
 
-PhoneBook::PhoneBook() {
-
+PhoneBook::PhoneBook()
+{
+	this->index = 0;
 }
 
-PhoneBook::~PhoneBook() {
-
+PhoneBook::~PhoneBook()
+{
 }
 
-void	PhoneBook::add_contact() {
-	const std::string	titles[5] = {"first name: ", "last name: ", "nickname: ", "phone number: ", "darkerst secret: "};
-	std::string			line;
-	bool 				error = false;
+void PhoneBook::print(int index)
+{
+	if (!this->contacts[index].getFirstName().size() && std::cout << "There is no contact at this index." << std::endl)
+		return;
 
-	for(int i = 0; i < 5; i++)
+	std::cout << "First Name: "
+			  << this->contacts[index].getFirstName() << std::endl;
+	std::cout << "Last Name: "
+			  << this->contacts[index].getLastName() << std::endl;
+	std::cout << "Nickname: "
+			  << this->contacts[index].getNickname() << std::endl;
+	std::cout << "Phone Number: "
+			  << this->contacts[index].getPhoneNumber() << std::endl;
+	std::cout << "Darkest Secret: "
+			  << this->contacts[index].getDarkestSecret() << std::endl;
+}
+
+void PhoneBook::addContact()
+{
+	std::string str;
+
+	str = "";
+	while (!std::cin.eof() && str == "" && std::cout << "ADD> first name>")
+		if (std::getline(std::cin, str) && str != "")
+			this->contacts[this->index % 8].setFirstName(str);
+	str = "";
+	while (!std::cin.eof() && str == "" && std::cout << "ADD> last name>")
+		if (std::getline(std::cin, str) && str != "")
+			this->contacts[this->index % 8].setLastName(str);
+	str = "";
+	while (!std::cin.eof() && str == "" && std::cout << "ADD> nickname>")
+		if (std::getline(std::cin, str) && str != "")
+			this->contacts[this->index % 8].setNickname(str);
+	str = "";
+	while (!std::cin.eof() && str == "" && std::cout << "ADD> phone number>")
+		if (std::getline(std::cin, str) && str != "")
+			this->contacts[this->index % 8].setPhoneNumber(str);
+	str = "";
+	while (!std::cin.eof() && str == "" && std::cout << "ADD> darkest secret>")
+		if (std::getline(std::cin, str) && str != "")
+			this->contacts[this->index % 8].setDarkestSecret(str);
+	this->index++;
+}
+
+std::string set10(std::string str)
+{
+	if (str.size() > 10)
 	{
-		std::cout << "Write your " + titles[i] << std::endl;
-		std::getline(std::cin, line);
-		if (line[0] && i == 3)
+		str.resize(9);
+		str += ".";
+	}
+	else
+		while (str.size() < 10)
+			str = " " + str;
+	return (str);
+}
+
+void PhoneBook::searchContact()
+{
+	int index;
+	std::string index_str;
+
+	index = 0;
+	if (this->index == 0 && std::cout << "There is no contact." << std::endl)
+		return;
+	while (++index <= this->index && index <= 8)
+	{
+		std::cout << "|" << set10(std::string(1, index + '0'));
+		std::cout << "|" << set10(this->contacts[index - 1].getFirstName());
+		std::cout << "|" << set10(this->contacts[index - 1].getLastName());
+		std::cout << "|" << set10(this->contacts[index - 1].getNickname());
+		std::cout << "|" << std::endl;
+	}
+	while (!std::cin.eof())
+	{
+		std::cout << "SEARCH> index>";
+		if (std::getline(std::cin, index_str), index_str != "")
 		{
-			for(int j = 0; j < 8; j++)
-			{	
-				if(!std::isdigit(line[j]))
-					error = true;
+			if (index_str.size() == 1 && '1' <= index_str[0] && index_str[0] <= '8')
+			{
+				index = index_str[0] - '0';
+				this->print(index - 1);
+				break;
 			}
 		}
-		
-		if(error)
-		{
-			std::cout << "error" << std::endl;	
-		}
-
-		if(!error)
-		{
-			
-		}
-	}		
+		if (index_str != "")
+			std::cout << "Wrong index." << std::endl;
+	}
 }
