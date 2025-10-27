@@ -6,7 +6,7 @@
 /*   By: aarranz- <aarranz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 12:13:59 by aarranz-          #+#    #+#             */
-/*   Updated: 2025/10/26 20:36:30 by aarranz-         ###   ########.fr       */
+/*   Updated: 2025/10/26 20:53:21 by aarranz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int main()
 
         mstack.push(5);
         mstack.push(17);
-        std::cout << mstack.top() << std::endl;
+        std::cout << "TOP: "<<mstack.top() << std::endl;
         mstack.pop();
-        std::cout << mstack.size() << std::endl;
+        std::cout << "SIZE: "<<mstack.size() << std::endl;
 
         mstack.push(3);
         mstack.push(5);
